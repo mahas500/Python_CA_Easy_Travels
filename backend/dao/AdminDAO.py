@@ -15,7 +15,7 @@ class AdminDAO:
             admin = Employee()
             cls.cursor.execute("SELECT * FROM employee e where e.username = %s and e.password = %s",
                                (username, password))
-            rows = cls.cursor.fetchall()
+            rows = cls.cursor.fetchone()
             resp = jsonify(rows)
             resp.status_code = 200
             admin = resp
