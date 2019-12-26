@@ -1,5 +1,4 @@
 from app import app
-from models.Admin import Admin
 from service import adminservice
 from flask import jsonify
 from flask import flash, request
