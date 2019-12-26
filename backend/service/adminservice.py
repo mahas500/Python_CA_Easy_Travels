@@ -1,2 +1,10 @@
+from dao.AdminDAO import AdminDAO
+
+
 class AdminService:
-    empCount = 0
+    adminDAO = AdminDAO()
+
+    @classmethod
+    def adminlogin(cls, headers, data):
+        responseData = cls.adminDAO.adminlogin(data.get('username'), data.get('password'))
+        return responseData
