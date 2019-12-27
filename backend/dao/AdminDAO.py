@@ -12,7 +12,7 @@ from models.employee import Employee
 class AdminDAO:
 
     @classmethod
-    def adminlogin(cls, username, password):
+    def employeeLogin(cls, username, password):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -28,7 +28,7 @@ class AdminDAO:
             conn.close()
 
     @classmethod
-    def updateAdminSessionToken(cls, employeeId):
+    def updateEmployeeSessionToken(cls, employeeId):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)

@@ -8,8 +8,8 @@ from service.adminservice import AdminService
 adminService = AdminService()
 
 
-@app.route('/adminlogin', methods=['POST'])
-def adminlogin():
+@app.route('/employeeLogin', methods=['POST'])
+def employeeLogin():
 
-    responseData = adminService.adminlogin(request.headers, request.json)
+    responseData = adminService.employeeLogin(request.headers, request.json)
     return responseData
