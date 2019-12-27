@@ -9,7 +9,7 @@ from flask import jsonify
 from models.employee import Employee
 
 
-class AdminDAO:
+class EmployeeDAO:
 
     @classmethod
     def employeeLogin(cls, username, password):

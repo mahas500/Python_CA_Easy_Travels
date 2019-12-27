@@ -3,7 +3,7 @@ from app import app
 from dbconfig import mysql
 from flask import jsonify
 from flask import flash, request
-from controller import AdminController
+from controller import EmployeeController
 
 
 if __name__ == "__main__":
