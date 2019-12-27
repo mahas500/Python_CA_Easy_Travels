@@ -4,6 +4,7 @@ from dbconfig import mysql
 from flask import jsonify
 from flask import flash, request
 from controller import EmployeeController
+from controller import CustomerController
 
 
 if __name__ == "__main__":
