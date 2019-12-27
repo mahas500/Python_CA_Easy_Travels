@@ -18,8 +18,10 @@ class EmployeeService:
     def assignRoleToEmployee(cls, headers, data):
         if cls.checkIfEmployeeLoggedIn(headers.get('sessionId')):
             employee = cls.employeeDAO.getEmployeeFromSessionId(headers.get('sessionId'))
-            if cls.checkIfEmployeeHasARole(employee['employee_id'], 3):
+            if not cls.checkIfEmployeeHasARole(employee['employee_id'], 3):
                 cls.employeeDAO.assignRoleToEmployee(data.get('employeeId'), data.get('roleId'))
+            else:
+                exit();
 
         return None
 
