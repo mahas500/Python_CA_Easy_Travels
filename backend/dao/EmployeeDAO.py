@@ -47,3 +47,56 @@ class EmployeeDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getEmployeeFromSessionId(cls, sessionId):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * from employee e WHERE e.session_id = %s ",
+                           sessionId)
+            rows = cursor.fetchone()
+            return rows
+        except Exception as e:
+
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def checkIfEmployeeHasARole(cls, employeeId, roleId):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * from employee_role_mapping e WHERE e.employee_id = %s and e.role_id= %s",
+                           (employeeId, int(roleId)))
+            rows = cursor.fetchone()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def assignRoleToEmployee(cls, employeeId, roleId):
+        try:
+            sessionId = str(uuid.uuid4())
+
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("insert into employee_role_mapping (mapping_id, employee_id, role_id) value (%s, %s, %s)",
+                           (sessionId, employeeId, int(roleId)))
+            conn.commit()
+
+            rows = cursor.fetchone()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()

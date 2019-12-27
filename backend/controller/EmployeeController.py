@@ -10,6 +10,21 @@ employeeService = EmployeeService()
 
 @app.route('/employeeLogin', methods=['POST'])
 def employeeLogin():
-
+    wsResponse = {"resultSet": None, "operationStatus": None}
     responseData = employeeService.employeeLogin(request.headers, request.json)
-    return responseData
+
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+
+    return wsResponse
+
+
+@app.route('/assignRoleToEmployee', methods=['POST'])
+def assignRoleToEmployee():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    responseData = employeeService.assignRoleToEmployee(request.headers, request.json)
+
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+
+    return wsResponse
