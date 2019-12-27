@@ -8,6 +8,7 @@ from service.CustomerService import CustomerService
 customerService = CustomerService()
 
 
+
 @app.route('/customerAdd', methods=['POST'])
 def customerCreate():
 
