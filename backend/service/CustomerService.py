@@ -52,3 +52,9 @@ class CustomerService:
     def getAllCustomersService(cls):
         responseData = cls.customerDAO.getAllCustomersfromDB()
         return responseData
+
+
+    @classmethod
+    def getAllEnquiryService(cls):
+        responseData = cls.customerDAO.getAllEnquiryfromDB()
+        return responseData
