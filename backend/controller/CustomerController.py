@@ -8,10 +8,8 @@ from service.CustomerService import CustomerService
 customerService = CustomerService()
 
 
-
 @app.route('/customerAdd', methods=['POST'])
 def customerCreate():
-
     wsResponse = {"resultSet": None, "operationStatus": None}
     responseData = customerService.customerCreate(request.headers, request.json)
     wsResponse['resultSet'] = responseData

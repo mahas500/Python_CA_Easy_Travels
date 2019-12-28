@@ -21,6 +21,7 @@ def employeeLogin():
 
 @app.route('/assignRoleToEmployee', methods=['POST'])
 def assignRoleToEmployee():
+
     wsResponse = {"resultSet": None, "operationStatus": None}
     responseData = employeeService.assignRoleToEmployee(request.headers, request.json)
 
