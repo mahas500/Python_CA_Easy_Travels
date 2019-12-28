@@ -37,3 +37,13 @@ def getAllCustomers():
     wsResponse['resultSet'] = responseData
     wsResponse['operationStatus'] = 1
     return responseData
+
+
+@app.route('/getAllEnquiries', methods=['GET'])
+def getAllEnquiries():
+
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    responseData = customerService.getAllEnquiryService()
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+    return responseData
