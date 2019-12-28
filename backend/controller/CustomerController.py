@@ -17,3 +17,12 @@ def customerCreate():
     wsResponse['resultSet'] = responseData
     wsResponse['operationStatus'] = 1
     return wsResponse
+
+@app.route('/customerAdd/enquiryAdd', methods=['POST'])
+def enquiryCreate():
+
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    responseData = customerService.customerCreate(request.headers, request.json)
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+    return wsResponse
