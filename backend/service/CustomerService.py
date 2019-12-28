@@ -12,11 +12,9 @@ class CustomerService:
 
     @classmethod
     def customerCreate(cls, headers, data):
-        print(headers.get('sessionId'))
         if cls.employeeService.checkIfEmployeeLoggedIn(headers.get('sessionId')):
             employee = cls.employeeDAO.getEmployeeFromSessionId(headers.get('sessionId'))
             if cls.employeeService.checkIfEmployeeHasARole(employee['employee_id'], 4):
-                print(employee['employee_id'])
                 customer = cls.customerDAO.customerCreate(data.get('name'),
                                                               data.get('username'), data.get('password'),
                                                               data.get('email'), data.get('contact_no'))
@@ -29,12 +27,13 @@ class CustomerService:
 
         if cls.employeeService.checkIfEmployeeLoggedIn(headers.get('employee_sessionId')):
             employee = cls.employeeDAO.getEmployeeFromSessionId(headers.get('employee_sessionId'))
-            if cls.checkIfCustomerExist(headers.get('customer_sessionId')):
-                customer = cls.customerDAO.getCustomerFromCustomersessionId(headers.get('customer_sessionId'))
-                enquiry = cls.customerDAO.customerEnquiryCreation(employee['employee_id'],customer['customer_id'],
-                                                                        data.get('enquiry_detail'),data.get('enquiry_type'),
-                                                                        data.get('required_days'),data.get('required_nights'),
-                                                                        data.get('required_country'))
+            if cls.employeeService.checkIfEmployeeHasARole(employee['employee_id'], 4):
+                 if cls.checkIfCustomerExist(headers.get('customer_sessionId')):
+                    customer = cls.customerDAO.getCustomerFromCustomersessionId(headers.get('customer_sessionId'))
+                    enquiry = cls.customerDAO.customerEnquiryCreation(employee['employee_id'],customer['customer_id'],
+                                                                            data.get('enquiry_detail'),data.get('enquiry_type'),
+                                                                            data.get('required_days'),data.get('required_nights'),
+                                                                            data.get('required_country'))
 
 
         return enquiry;
@@ -43,9 +42,6 @@ class CustomerService:
     @classmethod
     def checkIfCustomerExist(cls, sessionId):
         responseData = cls.customerDAO.getCustomerFromCustomersessionId(sessionId)
-        print(responseData)
-        print("hello hey")
-        print(responseData)
         if responseData is not None:
             return True
         else:
