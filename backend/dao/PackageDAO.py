@@ -48,3 +48,37 @@ class PackageDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def createIternaryForPackage(cls, iternary_id, packageId, day_number, day_date, day_details):
+        try:
+
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute(
+                "INSERT INTO package_iternary (iternary_id, package_id, day_number, day_date, day_details) values (%s, %s, %s, %s, %s )",
+                (iternary_id, packageId, int(day_number), day_date, day_details))
+            conn.commit()
+            rows = cursor.fetchall()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def getPackageFromPackgaeId(cls, packageId):
+        try:
+
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("select * from package p where p.package_id = %s", packageId)
+            rows = cursor.fetchone()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()

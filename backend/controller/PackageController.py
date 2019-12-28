@@ -29,3 +29,14 @@ def getAllPackages():
     wsResponse['operationStatus'] = 1
 
     return wsResponse
+
+
+@app.route('/createIternaryForPackage', methods=['POST'])
+def createIternaryForPackage():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    responseData = packageService.createIternaryForPackage(request.headers, request.json.get('iternary'))
+
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+
+    return wsResponse
