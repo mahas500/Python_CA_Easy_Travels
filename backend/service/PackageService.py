@@ -29,7 +29,7 @@ class PackageService:
 
         packageList = []
         for i in responseData:
-            print(i)
+
             packageList.append(cls.getPackageWithIternaryDetailsFromPackageId(i.get('package_id')))
         return packageList
 
