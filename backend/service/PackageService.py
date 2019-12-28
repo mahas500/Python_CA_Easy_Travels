@@ -22,3 +22,8 @@ class PackageService:
                                              data.get('city'), data.get('valid'))
 
         return None
+
+    @classmethod
+    def getAllPackages(cls, headers):
+        responseData = cls.packageDAO.getAllPackages()
+        return responseData
