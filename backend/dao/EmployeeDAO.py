@@ -8,7 +8,6 @@ from dbconfig import mysql
 from flask import jsonify
 
 
-
 class EmployeeDAO:
 
     @classmethod
