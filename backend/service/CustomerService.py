@@ -47,3 +47,8 @@ class CustomerService:
         else:
             return False
 
+
+    @classmethod
+    def getAllCustomersService(cls):
+        responseData = cls.customerDAO.getAllCustomersfromDB()
+        return responseData
