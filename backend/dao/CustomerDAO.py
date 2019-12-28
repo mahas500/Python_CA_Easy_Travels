@@ -20,7 +20,8 @@ class CustomerDAO:
                 "insert into customer (customer_id, name,username,password,email,contact_no,session_id) value (%s, %s, %s,%s, %s, %s,%s)",
                 (customerId, name, username, password, email, contact_no, sessionId))
             conn.commit()
-
+            cursor.execute("SELECT * from customer c WHERE c.session_id = %s",
+                           sessionId)
             rows = cursor.fetchone()
             return rows
         except Exception as e:
@@ -31,16 +32,18 @@ class CustomerDAO:
 
 
     @classmethod
-    def customerEnquiry(cls, name, username, password, email, contact_no):
+    def customerEnquiryCreation(cls, employee_id,customer_id, enquiry_detail,enquiry_type,required_days,required_nights,required_country):
         try:
             enquiryID= str(uuid.uuid4())
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
             cursor.execute(
-                "insert into enquiry (enquiry_id,employee_id,customer_id, enquiry_details,enquiry_type,required_days,required_nights,required_country) value (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                (enquiryID, name, username, password, email, contact_no))
+                "insert into enquiry (enquiry_id,employee_id,customer_id, enquiry_detail,enquiry_type,required_days,required_nights,required_country) value (%s,%s,%s,%s,%s,%s,%s,%s)",
+                (enquiryID, employee_id,customer_id, enquiry_detail,enquiry_type,required_days,required_nights,required_country))
             conn.commit()
+            cursor.execute("SELECT * from enquiry e WHERE e.session_id = %s",
+                           enquiryID)
 
             rows = cursor.fetchone()
             return rows
