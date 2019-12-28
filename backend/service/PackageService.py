@@ -26,7 +26,12 @@ class PackageService:
     @classmethod
     def getAllPackages(cls, headers):
         responseData = cls.packageDAO.getAllPackages()
-        return responseData
+
+        packageList = []
+        for i in responseData:
+            print(i)
+            packageList.append(cls.getPackageWithIternaryDetailsFromPackageId(i.get('package_id')))
+        return packageList
 
     @classmethod
     def createIternaryForPackage(cls, headers, iternaryList):
@@ -53,3 +58,10 @@ class PackageService:
             return True
         else:
             return False
+
+    @classmethod
+    def getPackageWithIternaryDetailsFromPackageId(cls, packageId):
+        packageDetails = {'package': cls.packageDAO.getPackageFromPackgaeId(packageId),
+                          'iternary': cls.packageDAO.getIternariesDetailsOfPackage(packageId)}
+
+        return packageDetails

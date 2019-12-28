@@ -39,7 +39,7 @@ class PackageDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("select * from package")
+            cursor.execute("SELECT * FROM package p")
 
             rows = cursor.fetchall()
             return rows
@@ -76,6 +76,22 @@ class PackageDAO:
 
             cursor.execute("select * from package p where p.package_id = %s", packageId)
             rows = cursor.fetchone()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def getIternariesDetailsOfPackage(cls, packageId):
+        try:
+
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("select * from package_iternary p WHERE p.package_id = %s ORDER BY p.day_number", packageId)
+            rows = cursor.fetchall()
             return rows
         except Exception as e:
             print(e)
