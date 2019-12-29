@@ -23,6 +23,14 @@ class CustomerService:
 
 
     @classmethod
+    def customerLoginService(cls, data):
+        if cls.checkIfCustomerisValid(data.get('username')):
+            customer = cls.customerDAO.customerLoginAuthentication(data.get('username'),data.get('password'))
+
+        return customer;
+
+
+    @classmethod
     def enquiryCreate(cls, headers, data):
 
         if cls.employeeService.checkIfEmployeeLoggedIn(headers.get('employee_sessionId')):
@@ -47,6 +55,13 @@ class CustomerService:
         else:
             return False
 
+    @classmethod
+    def checkIfCustomerisValid(cls, username):
+        responseData = cls.customerDAO.getCustomerFromCustomerUserName(username)
+        if responseData is not None:
+            return True
+        else:
+            return False
 
     @classmethod
     def getAllCustomersService(cls):

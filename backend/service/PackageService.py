@@ -3,12 +3,14 @@ import uuid
 from dao.EmployeeDAO import EmployeeDAO
 from dao.PackageDAO import PackageDAO
 from service.EmployeeService import EmployeeService
+from service.CustomerService import CustomerService
 
 
 class PackageService:
     packageDAO = PackageDAO()
     employeeService = EmployeeService()
     employeeDAO = EmployeeDAO()
+    customerService=CustomerService()
 
     @classmethod
     def createPackage(cls, headers, data):
@@ -65,3 +67,5 @@ class PackageService:
                           'iternary': cls.packageDAO.getIternariesDetailsOfPackage(packageId)}
 
         return packageDetails
+
+

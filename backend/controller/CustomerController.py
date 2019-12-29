@@ -13,7 +13,15 @@ def customerCreate():
     wsResponse = {"resultSet": None, "operationStatus": None}
     responseData = customerService.customerCreate(request.headers, request.json)
     wsResponse['resultSet'] = responseData
-    # print(responseData)
+    wsResponse['operationStatus'] = 1
+    return wsResponse
+
+
+@app.route('/customerLogin', methods=['POST'])
+def customerLogin():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    responseData = customerService.customerLoginService(request.json)
+    wsResponse['resultSet'] = responseData
     wsResponse['operationStatus'] = 1
     return wsResponse
 
