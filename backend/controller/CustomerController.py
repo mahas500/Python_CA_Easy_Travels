@@ -43,3 +43,11 @@ def getAllEnquiries():
     wsResponse['resultSet'] = responseData
     wsResponse['operationStatus'] = 1
     return responseData
+
+@app.route('/deleteCustomer', methods=['POST'])
+def deleteCustomer():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    responseData = customerService.deleteCustomerService(request.json)
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+    return responseData
