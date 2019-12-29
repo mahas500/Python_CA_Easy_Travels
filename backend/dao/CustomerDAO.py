@@ -11,7 +11,7 @@ class CustomerDAO:
     @classmethod
     def customerCreate(cls, name, username, password, email, contact_no):
         try:
-            customerId= str(uuid.uuid4())
+            customerId = str(uuid.uuid4())
 
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -30,22 +30,27 @@ class CustomerDAO:
             cursor.close()
             conn.close()
 
-
     @classmethod
-    def customerLoginAuthentication(cls, username,password):
+    def customerLogin(cls, username, password):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            sessionId = str(uuid.uuid4())
-
-            cursor.execute("update customer set session_id = %s where username = %s",
-                           (sessionId, username))
-            conn.commit()
 
             cursor.execute("SELECT * from customer where username = %s and password= %s",
-                           (username,password))
+                           (username, password))
             rows = cursor.fetchone()
-            return rows
+            if rows is not None:
+                sessionId = str(uuid.uuid4())
+                cursor.execute("update customer set session_id = %s where customer_id = %s",
+                               (sessionId, rows.get('customer_id')))
+                conn.commit()
+
+                cursor.execute("SELECT * from customer where username = %s and password= %s",
+                               (username, password))
+                rows = cursor.fetchone()
+                return rows
+            else:
+                return None
         except Exception as e:
 
             print(e)
@@ -53,13 +58,11 @@ class CustomerDAO:
             cursor.close()
             conn.close()
 
-
     @classmethod
     def getCustomerFromCustomerId(cls, customerId):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-
 
             cursor.execute("SELECT * from customer c WHERE c.customer_id = %s ",
                            customerId)
@@ -91,7 +94,6 @@ class CustomerDAO:
             cursor.close()
             conn.close()
 
-
     @classmethod
     def getAllCustomersfromDB(cls):
         try:
@@ -108,10 +110,8 @@ class CustomerDAO:
             cursor.close()
             conn.close()
 
-
-
     @classmethod
-    def deleteCustomerfromDB(cls, customer_id):
+    def deleteCustomer(cls, customer_id):
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
