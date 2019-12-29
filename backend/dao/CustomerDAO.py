@@ -103,3 +103,19 @@ class CustomerDAO:
         finally:
             cursor.close()
             conn.close()
+
+
+    @classmethod
+    def deleteCustomerfromDB(cls,customer_id):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("DELETE from customer where customer_id=%s",customer_id)
+            conn.commit()
+        except Exception as e:
+
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
