@@ -1,0 +1,2 @@
+class EmployeeDosentHaveRight(Exception):
+    pass
