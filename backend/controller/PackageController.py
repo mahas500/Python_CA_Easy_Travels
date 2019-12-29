@@ -1,3 +1,7 @@
+from CustomUtils import CustomUtils
+from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
+from Exceptions.NotLoggedIn import NotLoggedIn
+from Exceptions.PackageDoesNotExist import PackageDoesNotExist
 from app import app
 
 from flask import flash, request
@@ -9,12 +13,21 @@ packageService = PackageService()
 
 @app.route('/createPackage', methods=['POST'])
 def createPackage():
-    print(request.json)
     wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = packageService.createPackage(request.headers, request.json)
+    try:
+        responseData = packageService.createPackage(request.headers, request.json)
 
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except EmployeeDosentHaveRight:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_DOSENT_HAS_RIGHT
+    except NotLoggedIn:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_NOT_LOGGED_IN
+    except Exception:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 
     return wsResponse
 
@@ -22,10 +35,15 @@ def createPackage():
 @app.route('/getAllPackages', methods=['POST'])
 def getAllPackages():
     wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = packageService.getAllPackages(request.headers)
 
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
+    try:
+        responseData = packageService.getAllPackages(request.headers)
+
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 
     return wsResponse
 
@@ -33,10 +51,24 @@ def getAllPackages():
 @app.route('/createIternaryForPackage', methods=['POST'])
 def createIternaryForPackage():
     wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = packageService.createIternaryForPackage(request.headers, request.json.get('iternary'))
 
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
+
+    try:
+        responseData = packageService.createIternaryForPackage(request.headers, request.json.get('iternary'))
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except EmployeeDosentHaveRight:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_DOSENT_HAS_RIGHT
+    except NotLoggedIn:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_NOT_LOGGED_IN
+    except PackageDoesNotExist:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.PACKAGE_DOES_NOT_EXIST
+    except Exception:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 
     return wsResponse
 
@@ -44,10 +76,15 @@ def createIternaryForPackage():
 @app.route('/getPackageWithIternaryDetailsFromPackageId', methods=['POST'])
 def getPackageWithIternaryDetailsFromPackageId():
     wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = packageService.getPackageWithIternaryDetailsFromPackageId(request.json.get('package_id'))
+    try:
+        responseData = packageService.getPackageWithIternaryDetailsFromPackageId(request.json.get('package_id'))
 
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except:
+
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 
     return wsResponse
 

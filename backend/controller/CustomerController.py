@@ -1,3 +1,6 @@
+from CustomUtils import CustomUtils
+from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
+from Exceptions.NotLoggedIn import NotLoggedIn
 from app import app
 from service import EmployeeService
 from flask import jsonify
@@ -8,12 +11,25 @@ from service.CustomerService import CustomerService
 customerService = CustomerService()
 
 
-@app.route('/customerAdd', methods=['POST'])
-def customerCreate():
+@app.route('/createCustomer', methods=['POST'])
+def createCustomer():
     wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = customerService.customerCreate(request.headers, request.json)
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
+
+    try:
+        responseData = customerService.createCustomer(request.headers, request.json)
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except EmployeeDosentHaveRight:
+
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_DOSENT_HAS_RIGHT
+    except NotLoggedIn:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_NOT_LOGGED_IN
+    except Exception:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+
     return wsResponse
 
 
@@ -25,16 +41,6 @@ def customerLogin():
     wsResponse['operationStatus'] = 1
     return wsResponse
 
-
-@app.route('/enquiryAdd', methods=['POST'])
-def enquiryCreate():
-    wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = customerService.enquiryCreate(request.headers, request.json)
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
-    return wsResponse
-
-
 @app.route('/getAllCustomers', methods=['GET'])
 def getAllCustomers():
     wsResponse = {"resultSet": None, "operationStatus": None}
@@ -43,14 +49,6 @@ def getAllCustomers():
     wsResponse['operationStatus'] = 1
     return responseData
 
-
-@app.route('/getAllEnquiries', methods=['GET'])
-def getAllEnquiries():
-    wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = customerService.getAllEnquiryService()
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
-    return responseData
 
 @app.route('/deleteCustomer', methods=['POST'])
 def deleteCustomer():

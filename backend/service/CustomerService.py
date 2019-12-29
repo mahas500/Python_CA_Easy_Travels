@@ -1,5 +1,7 @@
 from wsgiref import headers
 
+from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
+from Exceptions.NotLoggedIn import NotLoggedIn
 from dao.CustomerDAO import CustomerDAO
 from dao.EmployeeDAO import EmployeeDAO
 from service.EmployeeService import EmployeeService
@@ -11,49 +13,28 @@ class CustomerService:
     employeeDAO = EmployeeDAO()
 
     @classmethod
-    def customerCreate(cls, headers, data):
-        if cls.employeeService.checkIfEmployeeLoggedIn(headers.get('sessionId')):
-            employee = cls.employeeDAO.getEmployeeFromSessionId(headers.get('sessionId'))
+    def createCustomer(cls, header, data):
+        if cls.employeeService.checkIfEmployeeLoggedIn(header.get('sessionId')):
+            employee = cls.employeeDAO.getEmployeeFromSessionId(header.get('sessionId'))
             if cls.employeeService.checkIfEmployeeHasARole(employee['employee_id'], 4):
                 customer = cls.customerDAO.customerCreate(data.get('name'),
-                                                              data.get('username'), data.get('password'),
-                                                              data.get('email'), data.get('contact_no'))
+                                                          data.get('username'), data.get('password'),
+                                                          data.get('email'), data.get('contact_no'))
+            else:
+                raise EmployeeDosentHaveRight
+        else:
+            raise NotLoggedIn
 
-        return customer;
-
-
-    @classmethod
-    def customerLoginService(cls, data):
-        if cls.checkIfCustomerisValid(data.get('username')):
-            customer = cls.customerDAO.customerLoginAuthentication(data.get('username'),data.get('password'))
-
-        return customer;
-
+        return customer
 
     @classmethod
-    def enquiryCreate(cls, headers, data):
-
-        if cls.employeeService.checkIfEmployeeLoggedIn(headers.get('employee_sessionId')):
-            employee = cls.employeeDAO.getEmployeeFromSessionId(headers.get('employee_sessionId'))
-            if cls.employeeService.checkIfEmployeeHasARole(employee['employee_id'], 4):
-                 if cls.checkIfCustomerExist(headers.get('customer_sessionId')):
-                    customer = cls.customerDAO.getCustomerFromCustomersessionId(headers.get('customer_sessionId'))
-                    enquiry = cls.customerDAO.customerEnquiryCreation(employee['employee_id'],customer['customer_id'],
-                                                                            data.get('enquiry_detail'),data.get('enquiry_type'),
-                                                                            data.get('required_days'),data.get('required_nights'),
-                                                                            data.get('required_country'))
-
-
-        return enquiry;
-
-
-    @classmethod
-    def checkIfCustomerExist(cls, sessionId):
-        responseData = cls.customerDAO.getCustomerFromCustomersessionId(sessionId)
+    def checkIfCustomerExist(cls, customerId):
+        responseData = cls.customerDAO.getCustomerFromCustomerId(customerId)
         if responseData is not None:
             return True
         else:
             return False
+
 
     @classmethod
     def checkIfCustomerisValid(cls, username):
@@ -68,13 +49,15 @@ class CustomerService:
         responseData = cls.customerDAO.getAllCustomersfromDB()
         return responseData
 
-
-    @classmethod
-    def getAllEnquiryService(cls):
-        responseData = cls.customerDAO.getAllEnquiryfromDB()
-        return responseData
-
     @classmethod
     def deleteCustomerService(cls, data):
         cls.customerDAO.deleteCustomerfromDB(data.get('customer_id'))
         return "Record deleted Successfully"
+
+
+    @classmethod
+    def customerLoginService(cls, data):
+        if cls.checkIfCustomerisValid(data.get('username')):
+            customer = cls.customerDAO.customerLoginAuthentication(data.get('username'), data.get('password'))
+
+        return customer;

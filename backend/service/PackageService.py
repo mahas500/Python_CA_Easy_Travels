@@ -1,5 +1,8 @@
 import uuid
 
+from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
+from Exceptions.NotLoggedIn import NotLoggedIn
+from Exceptions.PackageDoesNotExist import PackageDoesNotExist
 from dao.EmployeeDAO import EmployeeDAO
 from dao.PackageDAO import PackageDAO
 from service.EmployeeService import EmployeeService
@@ -22,7 +25,10 @@ class PackageService:
                                              data.get('unique_url_name'), data.get('days'),
                                              data.get('night'), data.get('charges'), data.get('country'),
                                              data.get('city'), data.get('valid'))
-
+            else:
+                raise EmployeeDosentHaveRight
+        else:
+            raise NotLoggedIn
         return None
 
     @classmethod
@@ -49,6 +55,14 @@ class PackageService:
                                                                 i.get('day_number'),
                                                                 i.get('day_date'),
                                                                 i.get('day_details'))
+                else:
+                    raise PackageDoesNotExist
+            else:
+                raise EmployeeDosentHaveRight
+        else:
+            raise NotLoggedIn
+
+
 
         return None
 
