@@ -6,6 +6,7 @@ from flask import flash, request
 from controller import EmployeeController
 from controller import CustomerController
 from controller import PackageController
+from controller import EnquiryController
 
 
 if __name__ == "__main__":

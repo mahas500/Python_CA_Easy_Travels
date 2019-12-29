@@ -66,3 +66,26 @@ def getAllEmployees():
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 
     return wsResponse
+
+
+@app.route('/createEmployee', methods=['POST'])
+def createEmployee():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseData = employeeService.createEmployee(request.headers, request.json)
+
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+    except EmployeeDosentHaveRight:
+
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_DOSENT_HAS_RIGHT
+    except NotLoggedIn:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_NOT_LOGGED_IN
+    except Exception as e:
+        print(e)
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
