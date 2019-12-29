@@ -35,6 +35,15 @@ class CustomerService:
         else:
             return False
 
+
+    @classmethod
+    def checkIfCustomerisValid(cls, username):
+        responseData = cls.customerDAO.getCustomerFromCustomerUserName(username)
+        if responseData is not None:
+            return True
+        else:
+            return False
+
     @classmethod
     def getAllCustomers(cls):
         responseData = cls.customerDAO.getAllCustomersfromDB()
@@ -44,3 +53,11 @@ class CustomerService:
     def deleteCustomerService(cls, data):
         cls.customerDAO.deleteCustomerfromDB(data.get('customer_id'))
         return "Record deleted Successfully"
+
+
+    @classmethod
+    def customerLoginService(cls, data):
+        if cls.checkIfCustomerisValid(data.get('username')):
+            customer = cls.customerDAO.customerLoginAuthentication(data.get('username'), data.get('password'))
+
+        return customer;
