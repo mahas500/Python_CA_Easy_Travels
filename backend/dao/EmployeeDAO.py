@@ -99,3 +99,20 @@ class EmployeeDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getAllEmployees(cls):
+        try:
+            sessionId = str(uuid.uuid4())
+
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("select * from employee")
+            rows = cursor.fetchall()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()

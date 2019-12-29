@@ -1,8 +1,10 @@
+from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
+from Exceptions.NotLoggedIn import NotLoggedIn
+from Exceptions.WrongCredentials import WrongCredentialsError
 from dao.EmployeeDAO import EmployeeDAO
 
 
 class EmployeeService:
-
     employeeDAO = EmployeeDAO()
 
     @classmethod
@@ -11,8 +13,9 @@ class EmployeeService:
 
         if responseData is not None:
             responseData = cls.employeeDAO.updateEmployeeSessionToken(responseData['employee_id'])
-
-        return responseData
+            return responseData
+        else:
+            raise WrongCredentialsError
 
     @classmethod
     def assignRoleToEmployee(cls, headers, data):
@@ -25,7 +28,9 @@ class EmployeeService:
 
                 cls.employeeDAO.assignRoleToEmployee(data.get('employeeId'), data.get('roleId'))
             else:
-                exit()
+                raise EmployeeDosentHaveRight
+        else:
+            raise NotLoggedIn
         return None
 
     @classmethod
@@ -43,3 +48,9 @@ class EmployeeService:
             return True
         else:
             return False
+
+    @classmethod
+    def getAllEmployees(cls):
+        responseData = cls.employeeDAO.getAllEmployees()
+
+        return responseData
