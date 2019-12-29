@@ -36,7 +36,7 @@ class CustomerService:
             return False
 
     @classmethod
-    def getAllCustomersService(cls):
+    def getAllCustomers(cls):
         responseData = cls.customerDAO.getAllCustomersfromDB()
         return responseData
 

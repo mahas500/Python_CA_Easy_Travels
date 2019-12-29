@@ -56,7 +56,7 @@ class CustomerDAO:
 
             cursor.execute("SELECT * from customer")
             rows = cursor.fetchall()
-            return jsonify(rows)
+            return rows
         except Exception as e:
 
             print(e)
