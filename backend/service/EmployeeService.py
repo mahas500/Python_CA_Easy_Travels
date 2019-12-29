@@ -1,3 +1,5 @@
+import uuid
+
 from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
 from Exceptions.NotLoggedIn import NotLoggedIn
 from Exceptions.WrongCredentials import WrongCredentialsError
@@ -54,3 +56,19 @@ class EmployeeService:
         responseData = cls.employeeDAO.getAllEmployees()
 
         return responseData
+
+    @classmethod
+    def createEmployee(cls, header, data):
+        if cls.checkIfEmployeeLoggedIn(header.get('sessionId')):
+
+            employee = cls.employeeDAO.getEmployeeFromSessionId(header.get('sessionId'))
+
+            if cls.checkIfEmployeeHasARole(employee['employee_id'], 3):
+                employee_id = str(uuid.uuid4())
+                cls.employeeDAO.createEmployee(employee_id, data.get('name'), data.get('username'),
+                                               data.get('password'), data.get('email'), data.get('contact_no'))
+
+            else:
+                raise EmployeeDosentHaveRight
+        else:
+            raise NotLoggedIn
