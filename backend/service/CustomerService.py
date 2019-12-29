@@ -1,7 +1,9 @@
 from wsgiref import headers
 
+from Exceptions import WrongCredentials
 from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
 from Exceptions.NotLoggedIn import NotLoggedIn
+from Exceptions.WrongCredentials import WrongCredentialsError
 from dao.CustomerDAO import CustomerDAO
 from dao.EmployeeDAO import EmployeeDAO
 from service.EmployeeService import EmployeeService
@@ -35,29 +37,20 @@ class CustomerService:
         else:
             return False
 
-
     @classmethod
-    def checkIfCustomerisValid(cls, username):
-        responseData = cls.customerDAO.getCustomerFromCustomerUserName(username)
-        if responseData is not None:
-            return True
-        else:
-            return False
-
-    @classmethod
-    def getAllCustomersService(cls):
+    def getAllCustomers(cls):
         responseData = cls.customerDAO.getAllCustomersfromDB()
         return responseData
 
     @classmethod
-    def deleteCustomerService(cls, data):
-        cls.customerDAO.deleteCustomerfromDB(data.get('customer_id'))
-        return "Record deleted Successfully"
-
+    def deleteCustomer(cls, data):
+        cls.customerDAO.deleteCustomer(data.get('customer_id'))
+        return None
 
     @classmethod
-    def customerLoginService(cls, data):
-        if cls.checkIfCustomerisValid(data.get('username')):
-            customer = cls.customerDAO.customerLoginAuthentication(data.get('username'), data.get('password'))
-
-        return customer;
+    def customerLogin(cls, data):
+        customer = cls.customerDAO.customerLogin(data.get('username'), data.get('password'))
+        if customer is not None:
+            return customer
+        else:
+            raise WrongCredentialsError
