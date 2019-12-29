@@ -34,3 +34,16 @@ def createEnquiry():
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 
     return wsResponse
+
+
+@app.route('/getAllEnquiries', methods=['POST'])
+def getAllEnquiries():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseData = enquiryService.getAllEnquiries()
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except:
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse

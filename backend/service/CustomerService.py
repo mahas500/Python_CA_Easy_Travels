@@ -41,11 +41,6 @@ class CustomerService:
         return responseData
 
     @classmethod
-    def getAllEnquiryService(cls):
-        responseData = cls.customerDAO.getAllEnquiryfromDB()
-        return responseData
-
-    @classmethod
     def deleteCustomerService(cls, data):
         cls.customerDAO.deleteCustomerfromDB(data.get('customer_id'))
         return "Record deleted Successfully"

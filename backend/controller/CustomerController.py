@@ -42,15 +42,6 @@ def getAllCustomers():
     return responseData
 
 
-@app.route('/getAllEnquiries', methods=['GET'])
-def getAllEnquiries():
-    wsResponse = {"resultSet": None, "operationStatus": None}
-    responseData = customerService.getAllEnquiryService()
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
-    return responseData
-
-
 @app.route('/deleteCustomer', methods=['POST'])
 def deleteCustomer():
     wsResponse = {"resultSet": None, "operationStatus": None}

@@ -40,3 +40,8 @@ class EnquiryService:
             raise NotLoggedIn
 
         return enquiry
+
+    @classmethod
+    def getAllEnquiries(cls):
+        responseData = cls.enquiryDAO.getAllEnquiries()
+        return responseData

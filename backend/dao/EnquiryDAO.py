@@ -29,3 +29,19 @@ class EnquiryDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def getAllEnquiries(cls):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute("SELECT * from enquiry")
+            rows = cursor.fetchall()
+            return rows
+        except Exception as e:
+
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()

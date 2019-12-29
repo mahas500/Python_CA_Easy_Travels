@@ -64,21 +64,7 @@ class CustomerDAO:
             cursor.close()
             conn.close()
 
-    @classmethod
-    def getAllEnquiryfromDB(cls):
-        try:
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("SELECT * from enquiry")
-            rows = cursor.fetchall()
-            return jsonify(rows)
-        except Exception as e:
-
-            print(e)
-        finally:
-            cursor.close()
-            conn.close()
 
     @classmethod
     def deleteCustomerfromDB(cls, customer_id):
