@@ -24,7 +24,6 @@ class EnquiryService:
             if cls.employeeService.checkIfEmployeeHasARole(employee['employee_id'], 4):
 
                 if cls.customerService.checkIfCustomerExist(data.get('customer_id')):
-                    print(3)
                     customer = cls.customerDAO.getCustomerFromCustomerId(data.get('customer_id'))
                     enquiry = cls.enquiryDAO.createEnquiry(employee['employee_id'], customer['customer_id'],
                                                            data.get('enquiry_detail'),

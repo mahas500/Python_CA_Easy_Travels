@@ -33,6 +33,14 @@ def createCustomer():
     return wsResponse
 
 
+@app.route('/customerLogin', methods=['POST'])
+def customerLogin():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    responseData = customerService.customerLoginService(request.json)
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+    return wsResponse
+
 @app.route('/getAllCustomers', methods=['GET'])
 def getAllCustomers():
     wsResponse = {"resultSet": None, "operationStatus": None}
