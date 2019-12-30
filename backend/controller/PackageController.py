@@ -1,4 +1,5 @@
 from CustomUtils import CustomUtils
+from Exceptions import WrongCredentials
 from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
 from Exceptions.NotLoggedIn import NotLoggedIn
 from Exceptions.PackageDoesNotExist import PackageDoesNotExist
@@ -41,7 +42,7 @@ def getAllPackages():
 
         wsResponse['resultSet'] = responseData
         wsResponse['operationStatus'] = 1
-    except:
+    except Exception:
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 
@@ -51,7 +52,6 @@ def getAllPackages():
 @app.route('/createIternaryForPackage', methods=['POST'])
 def createIternaryForPackage():
     wsResponse = {"resultSet": None, "operationStatus": None}
-
 
     try:
         responseData = packageService.createIternaryForPackage(request.headers, request.json.get('iternary'))
@@ -81,7 +81,7 @@ def getPackageWithIternaryDetailsFromPackageId():
 
         wsResponse['resultSet'] = responseData
         wsResponse['operationStatus'] = 1
-    except:
+    except Exception:
 
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
@@ -97,7 +97,7 @@ def searchPackage():
 
         wsResponse['resultSet'] = responseData
         wsResponse['operationStatus'] = 1
-    except:
+    except Exception:
 
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
@@ -105,3 +105,21 @@ def searchPackage():
     return wsResponse
 
 
+@app.route('/packageBooking', methods=['POST'])
+def packageBooking():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    try:
+        responseData = packageService.packageBookingService(request.headers, request.json)
+
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+
+    except PackageDoesNotExist:
+
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.PACKAGE_DOES_NOT_EXIST
+    except Exception:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+
+    return wsResponse

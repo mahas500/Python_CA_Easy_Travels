@@ -58,4 +58,9 @@ class CustomerService:
     @classmethod
     def searchCustomer(cls, searchText):
         responseData = cls.customerDAO.searchCustomer(searchText)
+
+    def getCustomerIDfromCustomerSessionID(cls, header):
+        responseData = cls.customerDAO.getCustomerfromCustomerSessionID(header.get('session_id'))
+        print(responseData)
+
         return responseData

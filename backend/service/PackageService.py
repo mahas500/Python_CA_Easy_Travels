@@ -67,6 +67,7 @@ class PackageService:
     def checkIfPackageExist(cls, packageId):
 
         package = cls.packageDAO.getPackageFromPackgaeId(packageId)
+        print(package)
         if package is not None:
             return True
         else:
@@ -86,3 +87,12 @@ class PackageService:
         for i in responseData:
             packageList.append(cls.getPackageWithIternaryDetailsFromPackageId(i.get('package_id')))
         return packageList
+
+    def packageBookingService(cls, headers, data):
+
+        if cls.checkIfPackageExist(data.get('package_id')):
+            customer = cls.customerService.getCustomerIDfromCustomerSessionID(headers)
+            package = cls.packageDAO.PackageBookingByCustomer(customer.get('customer_id'), data.get('package_id'))
+        else:
+            raise PackageDoesNotExist
+        return package
