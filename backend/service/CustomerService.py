@@ -54,3 +54,9 @@ class CustomerService:
             return customer
         else:
             raise WrongCredentialsError
+
+    @classmethod
+    def getCustomerIDfromCustomerSessionID(cls,header):
+        responseData = cls.customerDAO.getCustomerfromCustomerSessionID(header.get('session_id'))
+        print(responseData)
+        return responseData
