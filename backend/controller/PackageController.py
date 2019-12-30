@@ -1,4 +1,5 @@
 from CustomUtils import CustomUtils
+from Exceptions import WrongCredentials
 from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
 from Exceptions.NotLoggedIn import NotLoggedIn
 from Exceptions.PackageDoesNotExist import PackageDoesNotExist
@@ -89,3 +90,19 @@ def getPackageWithIternaryDetailsFromPackageId():
     return wsResponse
 
 
+@app.route('/packageBooking', methods=['POST'])
+def packageBooking():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    #try:
+    responseData = packageService.packageBookingService(request.headers,request.json)
+
+    wsResponse['resultSet'] = responseData
+    wsResponse['operationStatus'] = 1
+
+
+    #except PackageDoesNotExist:
+
+    #    wsResponse['resultSet'] = None
+    #    wsResponse['operationStatus'] = CustomUtils.PACKAGE_DOES_NOT_EXIST
+
+    return wsResponse

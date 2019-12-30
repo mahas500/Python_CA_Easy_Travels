@@ -98,3 +98,27 @@ class PackageDAO:
         finally:
             cursor.close()
             conn.close()
+
+
+    @classmethod
+    def PackageBookingByCustomer(cls, customer_id, package_id):
+        try:
+
+            bookingId = str(uuid.uuid4())
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+            cursor.execute(
+                "insert into booking (booking_id, customer_id,package_id) value (%s, %s, %s)",
+                (bookingId, customer_id, package_id))
+            conn.commit()
+            cursor.execute("SELECT * from booking WHERE booking_id = %s",
+                           bookingId)
+            rows = cursor.fetchone()
+            return rows
+
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
