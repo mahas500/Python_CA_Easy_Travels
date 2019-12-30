@@ -73,3 +73,17 @@ def deleteCustomer():
     except Exception:
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+
+@app.route('/searchCustomer', methods=['POST'])
+def searchCustomer():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseData = customerService.searchCustomer(request.json.get('searchText'))
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except Exception as e:
+        print(e)
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse

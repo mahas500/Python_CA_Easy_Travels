@@ -54,3 +54,8 @@ class CustomerService:
             return customer
         else:
             raise WrongCredentialsError
+
+    @classmethod
+    def searchCustomer(cls, searchText):
+        responseData = cls.customerDAO.searchCustomer(searchText)
+        return responseData
