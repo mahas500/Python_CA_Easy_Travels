@@ -8,6 +8,9 @@ import { CustomerLoginComponent } from './customer-login/customer-login.componen
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
+import { CreateEmployeeComponent } from './employee-dashboard/create-employee/create-employee.component';
+import { AllEmployeesComponent } from './employee-dashboard/all-employees/all-employees.component';
 
 
 
@@ -16,7 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
-    CustomerLoginComponent
+    CustomerLoginComponent,
+    EmployeeDashboardComponent,
+    CreateEmployeeComponent,
+    AllEmployeesComponent
   ],
   imports: [
     BrowserModule,

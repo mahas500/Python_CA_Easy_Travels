@@ -31,8 +31,11 @@ loginEmployee(){
     if (response.operationStatus == this.serverEndpoints.OPERATION_SUCESSESULL) {
       //this.loggedInUser = response.resultSet.appUser;
       //this.loggedInUserSession = response.resultSet.session;
-
-
+      let employee=response.resultSet;
+      localStorage.setItem(this.serverEndpoints.LOGGED_IN_EMPLOYEE_SEESION_ID,employee.session_id)
+      localStorage.setItem(this.serverEndpoints.LOGGED_IN_EMPLOYEE_NAME,employee.name)
+      localStorage.setItem(this.serverEndpoints.LOGGED_IN_EMPLOYEE_ID,employee.employee_id)
+      localStorage.setItem(this.serverEndpoints.LOGGED_IN_EMPLOYEE_ROLE,employee.role_id)
     } else {
       //this.customhttpService.getSpecificError(response.operationStatus);
     }
