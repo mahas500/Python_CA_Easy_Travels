@@ -89,6 +89,8 @@ class PackageService:
         if cls.checkIfPackageExist(data.get('package_id')):
             customer = cls.customerService.getCustomerIDfromCustomerSessionID(headers)
             package = cls.packageDAO.PackageBookingByCustomer(customer.get('customer_id'),data.get('package_id'))
+        else:
+            raise PackageDoesNotExist
         return package
 
 
