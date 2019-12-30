@@ -108,7 +108,7 @@ class EmployeeDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("SELECT * from employee e LEFT JOIN employee_role_mapping erm on e.employee_id = erm.employee_id LEFT JOIN employee_role er on er.role_id=erm.role_id")
+            cursor.execute("SELECT * from employee e LEFT JOIN employee_role_mapping erm on e.employee_id = erm.employee_id LEFT JOIN employee_role er on er.role_id=erm.role_id ORDER BY e.created_on DESC")
             rows = cursor.fetchall()
             return rows
         except Exception as e:

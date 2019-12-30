@@ -36,7 +36,7 @@ class EnquiryDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("SELECT * from enquiry")
+            cursor.execute("SELECT * from enquiry e ORDER BY e.created_on DESC")
             rows = cursor.fetchall()
             return rows
         except Exception as e:

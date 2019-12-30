@@ -100,7 +100,7 @@ class CustomerDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("SELECT * from customer")
+            cursor.execute("SELECT * from customer c ORDER BY c.created_on")
             rows = cursor.fetchall()
             return rows
         except Exception as e:

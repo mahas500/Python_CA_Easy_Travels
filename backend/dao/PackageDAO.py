@@ -39,7 +39,7 @@ class PackageDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("SELECT * FROM package p")
+            cursor.execute("SELECT * FROM package p ORDER BY p.created_on DESC")
 
             rows = cursor.fetchall()
             return rows
