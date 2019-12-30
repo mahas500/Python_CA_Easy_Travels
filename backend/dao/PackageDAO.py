@@ -130,8 +130,6 @@ class PackageDAO:
                            bookingId)
             rows = cursor.fetchone()
             return rows
-
-
         except Exception as e:
             print(e)
         finally:

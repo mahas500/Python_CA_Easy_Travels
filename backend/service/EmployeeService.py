@@ -1,13 +1,18 @@
 import uuid
+from random import randint
 
 from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
+from Exceptions.EmployeeWithEmailNotExist import EmployeeWithEmailNotExist
+from Exceptions.MailNotSent import MailNotSent
 from Exceptions.NotLoggedIn import NotLoggedIn
 from Exceptions.WrongCredentials import WrongCredentialsError
 from dao.EmployeeDAO import EmployeeDAO
+from service.EmailService import EmailService
 
 
 class EmployeeService:
     employeeDAO = EmployeeDAO()
+    emailService = EmailService()
 
     @classmethod
     def employeeLogin(cls, headers, data):
@@ -78,3 +83,31 @@ class EmployeeService:
         responseData = cls.employeeDAO.searchEmployee(searchText)
 
         return responseData
+
+    @classmethod
+    def forgotPassword(cls, data):
+        if cls.checkIfEmployeeExistWithEmailId(data.get('email')):
+            responseData = cls.employeeDAO.checkIfEmployeeExistWithEmailId(data.get('email'))
+
+            OTP = randint(100000, 999999)
+            message = "One time password = " + str(OTP)
+            if cls.emailService.sendEmail(data.get('email'), message):
+                cls.employeeDAO.updateOTP(responseData.get('employee_id'), OTP)
+                return None
+            else:
+                raise MailNotSent
+        else:
+            raise EmployeeWithEmailNotExist
+
+    @classmethod
+    def checkIfEmployeeExistWithEmailId(cls, emailId):
+        responseData = cls.employeeDAO.checkIfEmployeeExistWithEmailId(emailId)
+        if responseData is not None:
+            return True
+        else:
+            return False
+
+    @classmethod
+    def changePassword(cls, data):
+        cls.employeeDAO.changePassword(data.get('email_id'), data.get('otp'), data.get('password'))
+        return None

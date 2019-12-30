@@ -157,3 +157,47 @@ class EmployeeDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def checkIfEmployeeExistWithEmailId(cls, emailId):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("Select * from employee e where e.email=%s", emailId)
+            rows = cursor.fetchone()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def updateOTP(cls, employeeId, OTP):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            sessionId = str(uuid.uuid4())
+            print("---------", OTP, employeeId)
+            cursor.execute("update employee e set otp = %s where employee_id = %s ",
+                           (OTP, employeeId))
+            conn.commit()
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def changePassword(cls, email_id, otp, password):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("update employee e set password = %s where email = %s and otp= %s ",
+                           (password, email_id, otp))
+            conn.commit()
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
