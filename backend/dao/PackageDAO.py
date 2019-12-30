@@ -98,3 +98,18 @@ class PackageDAO:
         finally:
             cursor.close()
             conn.close()
+
+    @classmethod
+    def searchPackage(cls, searchText):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            query = "SELECT * FROM package WHERE MATCH (country, city, package_display_name, unique_url_name)AGAINST ('*"+searchText+"*' IN BOOLEAN MODE)"
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()

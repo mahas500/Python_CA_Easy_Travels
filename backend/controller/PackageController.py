@@ -89,3 +89,19 @@ def getPackageWithIternaryDetailsFromPackageId():
     return wsResponse
 
 
+@app.route('/searchPackage', methods=['POST'])
+def searchPackage():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    try:
+        responseData = packageService.searchPackage(request.json.get('searchText'))
+
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
+    except:
+
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+
+    return wsResponse
+
+
