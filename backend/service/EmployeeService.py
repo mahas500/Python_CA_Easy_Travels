@@ -72,3 +72,9 @@ class EmployeeService:
                 raise EmployeeDosentHaveRight
         else:
             raise NotLoggedIn
+
+    @classmethod
+    def searchEmployee(cls, searchText):
+        responseData = cls.employeeDAO.searchEmployee(searchText)
+
+        return responseData

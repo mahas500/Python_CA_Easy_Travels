@@ -89,3 +89,20 @@ def createEmployee():
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
     return wsResponse
+
+
+@app.route('/searchEmployee', methods=['POST'])
+def searchEmployee():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseData = employeeService.searchEmployee(request.json.get("searchText"))
+
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+    except:
+
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+
+    return wsResponse
