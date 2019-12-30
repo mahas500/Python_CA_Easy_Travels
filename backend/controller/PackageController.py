@@ -93,16 +93,16 @@ def getPackageWithIternaryDetailsFromPackageId():
 @app.route('/packageBooking', methods=['POST'])
 def packageBooking():
     wsResponse = {"resultSet": None, "operationStatus": None}
-    #try:
-    responseData = packageService.packageBookingService(request.headers,request.json)
+    try:
+        responseData = packageService.packageBookingService(request.headers,request.json)
 
-    wsResponse['resultSet'] = responseData
-    wsResponse['operationStatus'] = 1
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = 1
 
 
-    #except PackageDoesNotExist:
+    except PackageDoesNotExist:
 
-    #    wsResponse['resultSet'] = None
-    #    wsResponse['operationStatus'] = CustomUtils.PACKAGE_DOES_NOT_EXIST
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.PACKAGE_DOES_NOT_EXIST
 
     return wsResponse
