@@ -1,0 +1,41 @@
+<div id="create-employee" class="custom-forms-width">
+  <h5 class="custom-login-header">Create Employee</h5>
+  <div class="row">
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" class="validate" [(ngModel)]="name">
+          <label for="disabled">Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="email" [(ngModel)]="email">
+          <label for="disabled" >Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" [(ngModel)]="username">
+          <label for="disabled">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" [(ngModel)]="password">
+          <label for="disabled">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" [(ngModel)]="contact_no">
+          <label for="disabled">Contact No</label>
+        </div>
+      </div>
+
+      <button class="btn waves-effect waves-light" type="submit" name="action" (click)="createEmployee()">Submit
+
+      </button>
+
+  </div>
+</div>

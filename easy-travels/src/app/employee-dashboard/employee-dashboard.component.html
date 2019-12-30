@@ -1,0 +1,25 @@
+<nav >
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Logo</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">JavaScript</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="sidebar-and-content-fle-container">
+  <div class="custom-sidebar">
+    <ul id="slide-out" class="side-nav fixed " style="position: relative;">
+      <li><a routerLink="/employee-dashboard/all-employees">All Employees</a></li>
+      <li><a routerLink="/employee-dashboard/create-employee">Create Employee</a></li>
+
+    </ul>
+  </div>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
+

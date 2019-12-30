@@ -15,7 +15,7 @@ class EmployeeDAO:
         try:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT * FROM employee e where e.username = %s and e.password = %s",
+            cursor.execute("SELECT * FROM employee e LEFT JOIN employee_role_mapping erm on e.employee_id = erm.employee_id where e.username = %s and e.password = %s",
                            (username, password))
             rows = cursor.fetchone()
 
@@ -36,7 +36,7 @@ class EmployeeDAO:
             cursor.execute("update employee e set session_id = %s where employee_id = %s ",
                            (sessionId, employeeId))
             conn.commit()
-            cursor.execute("select * from employee e where e.employee_id = %s ",
+            cursor.execute("select * from employee e LEFT JOIN employee_role_mapping erm on e.employee_id = erm.employee_id where e.employee_id = %s ",
                            employeeId)
             d = cursor.fetchone()
 
@@ -108,7 +108,7 @@ class EmployeeDAO:
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
-            cursor.execute("select * from employee")
+            cursor.execute("SELECT * from employee e LEFT JOIN employee_role_mapping erm on e.employee_id = erm.employee_id LEFT JOIN employee_role er on er.role_id=erm.role_id ORDER BY e.created_on DESC")
             rows = cursor.fetchall()
             return rows
         except Exception as e:
