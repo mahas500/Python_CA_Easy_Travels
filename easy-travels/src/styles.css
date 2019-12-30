@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+.form-login-container{
+
+  max-width: 500px;
+  margin: auto;
+  padding: 50px 0px;
+}
+.custom-login-header{
+
+  text-align: center;
+
+}
+.fle-space-evenly{
+  display: flex;
+    justify-content: space-evenly;
+}
