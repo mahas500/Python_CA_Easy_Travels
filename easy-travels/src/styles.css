@@ -31,3 +31,7 @@
   width: 600px;
     margin: auto;
 }
+.custom-drowdown{
+  display: block;
+    width: 150px;
+}

@@ -1,3 +1,4 @@
+import { AllEmployeesComponent } from './employee-dashboard/all-employees/all-employees.component';
 import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
 import { CustomerLoginComponent } from './customer-login/customer-login.component';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +15,10 @@ const routes: Routes = [
       {
         path: 'create-employee',
         component: CreateEmployeeComponent
+      },
+      {
+        path: 'all-employees',
+        component: AllEmployeesComponent
       }
     ]
 

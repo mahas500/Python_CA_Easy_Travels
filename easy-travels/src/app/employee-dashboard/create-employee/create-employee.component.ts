@@ -21,7 +21,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   createEmployee(){
-    debugger
+
     let postBody = {
       "contact_no":this.contact_no,
       "name":this.name,

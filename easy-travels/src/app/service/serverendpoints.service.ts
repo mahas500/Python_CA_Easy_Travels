@@ -12,7 +12,8 @@ export class ServerendpointsService {
   employeeLogin= "employeeLogin";
   customerLogin="customerLogin";
   createEmployee="createEmployee";
-
+  getAllEmployees="getAllEmployees";
+  assignRoleToEmployee="assignRoleToEmployee";
 
   OPERATION_SUCESSESULL = 1
 
