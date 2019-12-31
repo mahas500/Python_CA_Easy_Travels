@@ -155,5 +155,5 @@ class CustomerDAO:
             print(e)
         finally:
             cursor.close()
-
             conn.close()
+

@@ -113,9 +113,10 @@ def packageBooking():
 
         wsResponse['resultSet'] = responseData
         wsResponse['operationStatus'] = 1
-
+    except NotLoggedIn:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.CUSTOMER_NOT_LOGGED_IN
     except PackageDoesNotExist:
-
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.PACKAGE_DOES_NOT_EXIST
     except Exception:
