@@ -99,6 +99,20 @@ class PackageDAO:
             cursor.close()
             conn.close()
 
+    @classmethod
+    def searchPackage(cls, searchText):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            query = "SELECT * FROM package WHERE MATCH (country, city, package_display_name, unique_url_name)AGAINST ('*" + searchText + "*' IN BOOLEAN MODE)"
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return rows
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
 
     @classmethod
     def PackageBookingByCustomer(cls, customer_id, package_id):
@@ -116,7 +130,6 @@ class PackageDAO:
                            bookingId)
             rows = cursor.fetchone()
             return rows
-
         except Exception as e:
             print(e)
         finally:

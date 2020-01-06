@@ -13,7 +13,7 @@ class PackageService:
     packageDAO = PackageDAO()
     employeeService = EmployeeService()
     employeeDAO = EmployeeDAO()
-    customerService=CustomerService()
+    customerService = CustomerService()
 
     @classmethod
     def createPackage(cls, headers, data):
@@ -37,7 +37,6 @@ class PackageService:
 
         packageList = []
         for i in responseData:
-
             packageList.append(cls.getPackageWithIternaryDetailsFromPackageId(i.get('package_id')))
         return packageList
 
@@ -62,8 +61,6 @@ class PackageService:
         else:
             raise NotLoggedIn
 
-
-
         return None
 
     @classmethod
@@ -84,8 +81,15 @@ class PackageService:
         return packageDetails
 
     @classmethod
-    def packageBookingService(cls,headers, data):
+    def searchPackage(cls, searchText):
+        responseData = cls.packageDAO.searchPackage(searchText)
+        packageList = []
+        for i in responseData:
+            packageList.append(cls.getPackageWithIternaryDetailsFromPackageId(i.get('package_id')))
+        return packageList
 
+    @classmethod
+    def packageBookingService(cls, headers, data):
         if cls.customerService.checkIfCustomerLoggedIn(headers):
             if cls.checkIfPackageExist(data.get('package_id')):
                 customer = cls.customerService.getCustomerIDfromCustomerSessionID(headers)
@@ -95,8 +99,3 @@ class PackageService:
         else:
             raise NotLoggedIn
         return package
-
-
-
-
-

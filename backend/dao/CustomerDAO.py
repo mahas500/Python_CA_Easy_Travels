@@ -126,6 +126,21 @@ class CustomerDAO:
             conn.close()
 
     @classmethod
+    def searchCustomer(cls, searchText):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            query = "SELECT * FROM customer WHERE MATCH (name, email) AGAINST ('*" + searchText + "*' IN BOOLEAN MODE) ORDER BY created_on"
+            cursor.execute(query)
+            rows = cursor.fetchall()
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+
+            conn.close()
+
+    @classmethod
     def getCustomerfromCustomerSessionID(cls, session_id):
         try:
             conn = mysql.connect()
@@ -133,6 +148,7 @@ class CustomerDAO:
 
             cursor.execute("SELECT customer_id from customer where session_id=%s", session_id)
             rows = cursor.fetchone()
+
             return rows
         except Exception as e:
 
@@ -140,5 +156,4 @@ class CustomerDAO:
         finally:
             cursor.close()
             conn.close()
-
 

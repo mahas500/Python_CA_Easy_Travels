@@ -56,8 +56,12 @@ class CustomerService:
             raise WrongCredentialsError
 
     @classmethod
-    def getCustomerIDfromCustomerSessionID(cls,header):
+    def searchCustomer(cls, searchText):
+        responseData = cls.customerDAO.searchCustomer(searchText)
+
+    def getCustomerIDfromCustomerSessionID(cls, header):
         responseData = cls.customerDAO.getCustomerfromCustomerSessionID(header.get('session_id'))
+
         return responseData
 
     @classmethod

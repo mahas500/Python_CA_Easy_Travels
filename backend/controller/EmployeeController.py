@@ -1,6 +1,8 @@
 from CustomUtils import CustomUtils
 
 from Exceptions.EmployeeDosentHaveRight import EmployeeDosentHaveRight
+from Exceptions.EmployeeWithEmailNotExist import EmployeeWithEmailNotExist
+from Exceptions.MailNotSent import MailNotSent
 from Exceptions.NotLoggedIn import NotLoggedIn
 from Exceptions.WrongCredentials import WrongCredentialsError
 from app import app
@@ -88,4 +90,56 @@ def createEmployee():
         print(e)
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+    return wsResponse
+
+
+@app.route('/searchEmployee', methods=['POST'])
+def searchEmployee():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseData = employeeService.searchEmployee(request.json.get("searchText"))
+
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+    except:
+
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+
+    return wsResponse
+
+
+@app.route('/forgotPassword', methods=['POST'])
+def forgotPassword():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+
+    try:
+        responseData = employeeService.forgotPassword(request.json)
+
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+
+    except MailNotSent:
+        wsResponse['operationStatus'] = CustomUtils.EMAIL_SENDING_FAILED
+    except EmployeeWithEmailNotExist:
+        wsResponse['operationStatus'] = CustomUtils.EMPLOYEE_WITH_EMAIL_NOT_EXIST
+    except Exception:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+
+    return wsResponse
+
+
+@app.route('/changePassword', methods=['POST'])
+def changePassword():
+    wsResponse = {"resultSet": None, "operationStatus": None}
+    try:
+        responseData = employeeService.changePassword(request.json)
+        wsResponse['resultSet'] = responseData
+        wsResponse['operationStatus'] = CustomUtils.SUCCESSFULL
+    except Exception:
+        wsResponse['resultSet'] = None
+        wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
+
     return wsResponse
