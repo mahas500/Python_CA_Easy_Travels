@@ -1,0 +1,28 @@
+<h4 class="custom-login-header">CUSTOMER LOGIN</h4>
+
+<div class="form-login-container z-depth-5">
+  <div class="row">
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Username" id="first_name" type="text" class="validate" [(ngModel)]="username">
+          <label for="first_name">Username</label>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Password" id="last_name" type="password" class="validate" [(ngModel)]="password">
+          <label for="last_name">Password</label>
+        </div>
+      </div>
+      <div class="row fle-space-evenly">
+        <a class="waves-effect waves-light btn" (click)="customerLogin()">Login</a>
+        <a class="waves-effect waves-light btn" routerLink="/employee-login">Navigate to Employee Login</a>
+
+      </div>
+
+
+  </div>
+
+</div>

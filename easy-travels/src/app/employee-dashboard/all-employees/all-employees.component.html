@@ -1,0 +1,24 @@
+<ul class="collapsible" data-collapsible="accordion">
+  <li *ngFor="let e of employees ">
+    <div class="collapsible-header">{{e.name}}</div>
+    <div class="collapsible-body">
+      <p>{{e.email}}</p>
+      <p>{{e.contact_no}}</p>
+      <p *ngIf="e.role_id!=null">{{e.role_name}}</p>
+      <div *ngIf="e.role_id==null">
+        <select class="custom-drowdown" [(ngModel)]="role" >
+          <option value="2" (click)="assigneRole('OPERATION')">OPERATION</option>
+          <option value="3">ADMIN</option>
+          <option value="1">HR</option>
+          <option value="4">SALES</option>
+          <option value="5">OPERATION HEAD</option>
+        </select>
+        <button class="btn waves-effect waves-light" type="submit" name="action" (click)="assigneRole(role,e.employee_id)">Submit</button>
+
+      </div>
+
+    </div>
+  </li>
+
+</ul>
+
