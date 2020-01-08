@@ -19,7 +19,8 @@ class EmailService:
                 server.starttls(context=cls.context)
                 server.ehlo()  # Can be omitted
                 server.login(cls.sender_email, cls.password)
-                server.sendmail(cls.sender_email, cls.Subject, receiver_email, message)
+                server.sendmail(cls.sender_email, receiver_email, message)
             return True
         except Exception as e:
+            print(e)
             return False

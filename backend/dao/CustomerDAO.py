@@ -133,6 +133,7 @@ class CustomerDAO:
             query = "SELECT * FROM customer WHERE MATCH (name, email) AGAINST ('*" + searchText + "*' IN BOOLEAN MODE) ORDER BY created_on"
             cursor.execute(query)
             rows = cursor.fetchall()
+            return rows
         except Exception as e:
             print(e)
         finally:

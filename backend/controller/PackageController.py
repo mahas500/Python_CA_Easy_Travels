@@ -119,7 +119,8 @@ def packageBooking():
     except PackageDoesNotExist:
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.PACKAGE_DOES_NOT_EXIST
-    except Exception:
+    except Exception as e:
+        print(e)
         wsResponse['resultSet'] = None
         wsResponse['operationStatus'] = CustomUtils.SOMETHING_WENT_WRONG
 

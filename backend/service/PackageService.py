@@ -67,7 +67,6 @@ class PackageService:
     def checkIfPackageExist(cls, packageId):
 
         package = cls.packageDAO.getPackageFromPackgaeId(packageId)
-        print(package)
         if package is not None:
             return True
         else:
@@ -90,10 +89,10 @@ class PackageService:
 
     @classmethod
     def packageBookingService(cls, headers, data):
-        if cls.customerService.checkIfCustomerLoggedIn(headers):
+        if cls.customerService.checkIfCustomerLoggedIn(headers.get('session_id')):
             if cls.checkIfPackageExist(data.get('package_id')):
-                customer = cls.customerService.getCustomerIDfromCustomerSessionID(headers)
-                package = cls.packageDAO.PackageBookingByCustomer(customer.get('customer_id'),data.get('package_id'))
+                customer = cls.customerService.getCustomerIDfromCustomerSessionID(headers.get('session_id'))
+                package = cls.packageDAO.PackageBookingByCustomer(customer.get('customer_id'), data.get('package_id'))
             else:
                 raise PackageDoesNotExist
         else:

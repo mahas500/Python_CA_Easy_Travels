@@ -58,15 +58,16 @@ class CustomerService:
     @classmethod
     def searchCustomer(cls, searchText):
         responseData = cls.customerDAO.searchCustomer(searchText)
+        return responseData
 
-    def getCustomerIDfromCustomerSessionID(cls, header):
-        responseData = cls.customerDAO.getCustomerfromCustomerSessionID(header.get('session_id'))
+    def getCustomerIDfromCustomerSessionID(cls, sessionId):
+        responseData = cls.customerDAO.getCustomerfromCustomerSessionID(sessionId)
 
         return responseData
 
     @classmethod
-    def checkIfCustomerLoggedIn(cls, header):
-        responseData = cls.customerDAO.getCustomerfromCustomerSessionID(header.get('session_id'))
+    def checkIfCustomerLoggedIn(cls, sessionId):
+        responseData = cls.customerDAO.getCustomerfromCustomerSessionID(sessionId)
         if responseData is not None:
             return True
         else:
