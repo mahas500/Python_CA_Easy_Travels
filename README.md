@@ -5,17 +5,17 @@ Customer can visit our website and ask us for registering themselves in the port
 This System is designed for a Tour packages management company
 
 # Functional Requirements:
-1: Employees and customers should be able to login to the system, and their session should be maintained.
-2: Employee with role admin should be able to create other employees and assign roles to them.
-3: There should be provision for employees to change password with the OTP and otp should be sent to the registered email id.
-4: Employees with role operation should be able to create holiday/tour packages.
-5: Employees should be able to update package details
-6: There should be functionality to search through itinerary of the packages.
-7: There should be functionality for searching through all the customers.
-8: There should be functionality for searching through Employee.
-9: Employee with role sales should be able to create and handle enquires asked by the customers.
-10: Employee with role sales should be able to register a new customer.
-11: On Deletion of Customer entry, all the enquiries associated with that customer will be deleted. 
-12: Customer should be able to book their desired packages.
-13: There should be a functionality to get all customers, all enquires raised, all packages (for showing on website )created.
-14: While retrieving, all the entries should be sorted by the latest creation.
+1: Employees and customers should be able to login to the system, and their session should be maintained.<br />
+2: Employee with role admin should be able to create other employees and assign roles to them.<br />
+3: There should be provision for employees to change password with the OTP and otp should be sent to the registered email id.<br />
+4: Employees with role operation should be able to create holiday/tour packages.<br />
+5: Employees should be able to update package details<br />
+6: There should be functionality to search through itinerary of the packages. <br />
+7: There should be functionality for searching through all the customers. <br />
+8: There should be functionality for searching through Employee. <br />
+9: Employee with role sales should be able to create and handle enquires asked by the customers. <br />
+10: Employee with role sales should be able to register a new customer. <br />
+11: On Deletion of Customer entry, all the enquiries associated with that customer will be deleted. <br />
+12: Customer should be able to book their desired packages. <br />
+13: There should be a functionality to get all customers, all enquires raised, all packages (for showing on website )created.<br />
+14: While retrieving, all the entries should be sorted by the latest creation. <br />
