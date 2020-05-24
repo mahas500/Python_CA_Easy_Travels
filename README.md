@@ -19,3 +19,11 @@ This System is designed for a Tour packages management company
 12: Customer should be able to book their desired packages. <br />
 13: There should be a functionality to get all customers, all enquires raised, all packages (for showing on website )created.<br />
 14: While retrieving, all the entries should be sorted by the latest creation. <br />
+
+# Users of the Information systems
+Following are the two major users of the information systems:<br />
+1. Employees <br />
+Employees act as an actor or user of the easy travels web portal information systems by managing the web portal. They are the one responsible for handling requests which comes from the clients to the server. Request such as enquiry creation, customer creation, customer deletion, package creation etc. are handled by the employees. <br />
+2. Customers <br />
+Customers also act as a user of the system by interacting with the employees. They send requests to the server by acting as a client. Request such as enquiry creation, new package creation, getting the booking details etc are raised by the customers. These requests are handled by the employees at the server end. <br />
+
